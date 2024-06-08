@@ -21,7 +21,7 @@ function detectFacesInImage(
   user,
   setUser
 ) {
-  fetch(`${process.env.SERVER_API_URL}/imageurl`, {
+  fetch(`https://face-recognition-api-yt0g.onrender.com/imageurl`, {
     method: "post",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -32,7 +32,7 @@ function detectFacesInImage(
     .then((response) => {
       console.log(response)
       if (response.status === 200) {
-        fetch(`${process.env.SERVER_API_URL}/image`, {
+        fetch(`https://face-recognition-api-yt0g.onrender.com/image`, {
           method: "put",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
