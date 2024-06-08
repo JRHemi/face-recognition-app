@@ -19,7 +19,7 @@ function Register({ onRouteChange, loadUser }) {
 
   function onSubmitRegister () {
     
-    fetch(`${process.env.SERVER_API_URL}/register`, {
+    fetch(process.env.SERVER_API_URL + "/register", {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(

@@ -15,7 +15,7 @@ function Signin ({ onRouteChange, loadUser }) {
 
   function onSubmitSignIn () {
     
-    fetch(`${process.env.SERVER_API_URL}/signin`, {
+    fetch(process.env.SERVER_API_URL + "/signin", {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(
