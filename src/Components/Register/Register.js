@@ -19,7 +19,7 @@ function Register({ onRouteChange, loadUser }) {
 
   function onSubmitRegister () {
     
-    fetch(process.env.SERVER_API_URL + "/register", {
+    fetch("https://face-recognition-api-yt0g.onrender.com/register", {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(
