@@ -34,7 +34,7 @@ function detectFacesInImage(
     })
     .then((response) => {
       console.log(response.headers.status)
-      if (response.status.description === "Ok") {
+      if (response.headers.status === 200) {
         fetch(`https://face-recognition-api-yt0g.onrender.com/image`, {
           method: "put",
           headers: { "Content-Type": "application/json" },
