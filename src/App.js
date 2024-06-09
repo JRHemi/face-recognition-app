@@ -28,10 +28,13 @@ function detectFacesInImage(
       input: imageURL,
     }),
   })
-    .then((response) => response.json())
     .then((response) => {
       console.log(response.status)
-      if (response.status === 200) {
+      return response.json()
+    })
+    .then((response) => {
+      console.log(response.status)
+      if (response.status.description === "Ok") {
         fetch(`https://face-recognition-api-yt0g.onrender.com/image`, {
           method: "put",
           headers: { "Content-Type": "application/json" },
