@@ -20,11 +20,7 @@ function detectFacesInImage(
   displayfaceBox,
   user,
   setUser,
-  updateEntries,
-  newEntires,
-  setNewEntries,
-  validResponse,
-  setValidResponse
+  updateEntries
 ) {
   fetch(`https://face-recognition-api-yt0g.onrender.com/imageurl`, {
     method: "post",
@@ -34,9 +30,6 @@ function detectFacesInImage(
     }),
   })
     .then((response) => {
-      if (response.status === 200) {
-        setValidResponse(true);
-      }
       return response.json();
     })
     .then((result) => {
@@ -52,15 +45,8 @@ function detectFacesInImage(
         });
       }
 
-      console.log(boxArray.length);
-      setNewEntries(boxArray.length);
-
-      if (validResponse === true) {
-        console.log(newEntires);
-        updateEntries(newEntires, setUser, user);
-
-        setValidResponse(false);
-        setNewEntries(0);
+      if (result.status.description === "Ok") {
+        updateEntries(boxArray.length, setUser, user);
       }
 
       displayfaceBox(boxArray);
@@ -88,8 +74,6 @@ function App() {
   const [route, setRoute] = useState("signin");
   const [isSignedIn, setSignIn] = useState(false);
   const [user, setUser] = useState(initialUser);
-  const [newEntires, setNewEntries] = useState(0);
-  const [validResponse, setValidResponse] = useState(false);
 
   function loadUser(user) {
     setUser({
@@ -113,11 +97,7 @@ function App() {
       displayfaceBox,
       user,
       setUser,
-      updateEntries,
-      newEntires,
-      setNewEntries,
-      validResponse,
-      setValidResponse
+      updateEntries
     );
   }
 
@@ -132,7 +112,6 @@ function App() {
     })
       .then((response) => response.json())
       .then((count) => {
-        console.log(count);
         setUser((prevUser) => ({
           ...prevUser,
           entries: count,
