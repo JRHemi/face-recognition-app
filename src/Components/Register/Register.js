@@ -1,4 +1,4 @@
-import React, {useState}  from "react";
+import React, { useState } from "react";
 
 function Register({ onRouteChange, loadUser }) {
   const [email, setEmail] = useState(false);
@@ -14,29 +14,26 @@ function Register({ onRouteChange, loadUser }) {
   }
 
   function onUserNameChange(event) {
-    setUserName(event.target.value)
+    setUserName(event.target.value);
   }
 
-  function onSubmitRegister () {
-    
+  function onSubmitRegister() {
     fetch("https://face-recognition-api-yt0g.onrender.com/register", {
-      method: 'post',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(
-        {
-          email: email,
-          password: password,
-          username: username,
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+        username: username,
+      }),
+    })
+      .then((response) => response.json())
+      .then((user) => {
+        if (user.id) {
+          loadUser(user);
+          onRouteChange("home");
         }
-      )
-    })
-    .then(response => response.json())
-    .then(user => {
-      if(user.id) {
-        loadUser(user)
-        onRouteChange("home")
-      }
-    })
+      });
   }
 
   return (
@@ -45,41 +42,46 @@ function Register({ onRouteChange, loadUser }) {
         <div className="measure">
           <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
             <legend className="f1 white fw6 ph0 mh0">Register</legend>
-            <div className="mt3">
-              <label className="db white fw6 lh-copy f6" htmlFor="userName">
-                Name
-              </label>
-              <input
-                className="pa2 br3 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                type="userName"
-                username="userName"
-                id="userName"
-                onChange={onUserNameChange}
-              />
-            </div>
-            <div className="mt3">
-              <label className="db white fw6 lh-copy f6" htmlFor="email-address">
-                Email
-              </label>
-              <input
-                className="pa2 br3 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                type="email"
-                email="email-address"
-                id="email-address"
-                onChange={onEmailChange}
-              />
-            </div>
-            <div className="mv3">
-              <label className="db white fw6 lh-copy f6" htmlFor="password">
-                Password
-              </label>
-              <input
-                className="b pa2 br3 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                type="password"
-                password="password"
-                id="password"
-                onChange={onPasswordChange}
-              />
+            <div>
+              <div className="mt3">
+                <label className="db white fw6 lh-copy f6" htmlFor="userName">
+                  Username
+                </label>
+                <input
+                  className="pa2 br3 input-reset ba bg-transparent hover-bg-black hover-white w100"
+                  type="userName"
+                  username="userName"
+                  id="userName"
+                  onChange={onUserNameChange}
+                />
+              </div>
+              <div className="mt3">
+                <label
+                  className="db white fw6 lh-copy f6"
+                  htmlFor="email-address"
+                >
+                  Email
+                </label>
+                <input
+                  className="pa2 br3 input-reset ba bg-transparent hover-bg-black hover-white w100"
+                  type="email"
+                  email="email-address"
+                  id="email-address"
+                  onChange={onEmailChange}
+                />
+              </div>
+              <div className="mv3">
+                <label className="db white fw6 lh-copy f6" htmlFor="password">
+                  Password
+                </label>
+                <input
+                  className="b pa2 br3 input-reset ba bg-transparent hover-bg-black hover-white w100"
+                  type="password"
+                  password="password"
+                  id="password"
+                  onChange={onPasswordChange}
+                />
+              </div>
             </div>
           </fieldset>
           <div className="">

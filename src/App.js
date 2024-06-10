@@ -19,7 +19,12 @@ function detectFacesInImage(
   faceLocatorFunction,
   displayfaceBox,
   user,
-  setUser
+  setUser,
+  updateEntries,
+  newEntires,
+  setNewEntries,
+  validResponse,
+  setValidResponse
 ) {
   fetch(`https://face-recognition-api-yt0g.onrender.com/imageurl`, {
     method: "post",
@@ -29,23 +34,8 @@ function detectFacesInImage(
     }),
   })
     .then((response) => {
-      console.log(response.status)
       if (response.status === 200) {
-        fetch(`https://face-recognition-api-yt0g.onrender.com/image`, {
-          method: "put",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            id: user.id,
-          }),
-        })
-          .then((response) => response.json())
-          .then((count) => {
-            setUser((prevUser) => ({
-              ...prevUser,
-              entries: count,
-            }));
-          })
-          .catch(console.log);
+        setValidResponse(true);
       }
       return response.json();
     })
@@ -60,6 +50,17 @@ function detectFacesInImage(
           const box = faceLocatorFunction(boundingBox);
           boxArray.push(box);
         });
+      }
+
+      console.log(boxArray.length);
+      setNewEntries(boxArray.length);
+
+      if (validResponse === true) {
+        console.log(newEntires);
+        updateEntries(newEntires, setUser, user);
+
+        setValidResponse(false);
+        setNewEntries(0);
       }
 
       displayfaceBox(boxArray);
@@ -87,6 +88,8 @@ function App() {
   const [route, setRoute] = useState("signin");
   const [isSignedIn, setSignIn] = useState(false);
   const [user, setUser] = useState(initialUser);
+  const [newEntires, setNewEntries] = useState(0);
+  const [validResponse, setValidResponse] = useState(false);
 
   function loadUser(user) {
     setUser({
@@ -109,8 +112,33 @@ function App() {
       calculateFaceLocation,
       displayfaceBox,
       user,
-      setUser
+      setUser,
+      updateEntries,
+      newEntires,
+      setNewEntries,
+      validResponse,
+      setValidResponse
     );
+  }
+
+  function updateEntries(newEntries, setUser, user) {
+    fetch(`https://face-recognition-api-yt0g.onrender.com/image`, {
+      method: "put",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: user.id,
+        newEntires: newEntries,
+      }),
+    })
+      .then((response) => response.json())
+      .then((count) => {
+        console.log(count);
+        setUser((prevUser) => ({
+          ...prevUser,
+          entries: count,
+        }));
+      })
+      .catch(console.log);
   }
 
   function calculateFaceLocation(data) {
