@@ -12,7 +12,6 @@ import Register from "./Components/Register/Register";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadFull } from "tsparticles";
 import particlesOptions from "./particles.json";
-// import { count } from "console";
 
 function detectFacesInImage(
   imageURL,

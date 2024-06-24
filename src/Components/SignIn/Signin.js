@@ -1,37 +1,33 @@
-// import { sign } from "crypto";
-import React, { useState }  from "react";
+import React, { useState } from "react";
 
-function Signin ({ onRouteChange, loadUser }) {
+function Signin({ onRouteChange, loadUser }) {
   const [signInEmail, setSignInEmail] = useState(false);
   const [signInPassword, setSignInPassword] = useState(false);
 
   function onEmailChange(event) {
-    setSignInEmail(event.target.value)
+    setSignInEmail(event.target.value);
   }
 
   function onPasswordChange(event) {
-    setSignInPassword(event.target.value)
+    setSignInPassword(event.target.value);
   }
 
-  function onSubmitSignIn () {
-    
+  function onSubmitSignIn() {
     fetch("https://face-recognition-api-yt0g.onrender.com/signin", {
-      method: 'post',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(
-        {
-          email: signInEmail,
-          password: signInPassword
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: signInEmail,
+        password: signInPassword,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.id) {
+          loadUser(data);
+          onRouteChange("home");
         }
-      )
-    })
-    .then(response => response.json())
-    .then(data => {
-      if(data.id) {
-        loadUser(data)
-        onRouteChange("home")
-      }
-    })
+      });
   }
 
   return (
@@ -41,7 +37,10 @@ function Signin ({ onRouteChange, loadUser }) {
           <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
             <legend className="f1 fw6 ph0 mh0 white">Sign In</legend>
             <div className="mt3">
-              <label className="db fw6 lh-copy white f6" htmlFor="email-address">
+              <label
+                className="db fw6 lh-copy white f6"
+                htmlFor="email-address"
+              >
                 Email
               </label>
               <input
@@ -86,6 +85,6 @@ function Signin ({ onRouteChange, loadUser }) {
       </main>
     </article>
   );
-};
+}
 
 export default Signin;
