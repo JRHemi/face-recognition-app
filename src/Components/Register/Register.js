@@ -37,18 +37,17 @@ function Register({ onRouteChange, loadUser }) {
   }
 
   return (
-    <article className="br3 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
-      <main className="pa4 black-80">
+    <article className="br3 ba-ns dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5-ns center">
+      <main className="pa4 w-80">
         <div className="measure">
           <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-            <legend className="f1 white fw6 ph0 mh0">Register</legend>
-            <div>
+            <legend className="f1 white fw6 ph0 mh0 center">Register</legend>
               <div className="mt3">
                 <label className="db white fw6 lh-copy f6" htmlFor="userName">
                   Username
                 </label>
                 <input
-                  className="pa2 br3 input-reset ba bg-transparent hover-bg-black hover-white w100"
+                  className="pa2 br3 input-reset ba bg-transparent hover-bg-black hover-white"
                   type="userName"
                   username="userName"
                   id="userName"
@@ -63,7 +62,7 @@ function Register({ onRouteChange, loadUser }) {
                   Email
                 </label>
                 <input
-                  className="pa2 br3 input-reset ba bg-transparent hover-bg-black hover-white w100"
+                  className="pa2 br3 input-reset ba bg-transparent hover-bg-black hover-white"
                   type="email"
                   email="email-address"
                   id="email-address"
@@ -75,14 +74,13 @@ function Register({ onRouteChange, loadUser }) {
                   Password
                 </label>
                 <input
-                  className="b pa2 br3 input-reset ba bg-transparent hover-bg-black hover-white w100"
+                  className="b pa2 br3 input-reset ba bg-transparent hover-bg-black hover-white"
                   type="password"
                   password="password"
                   id="password"
                   onChange={onPasswordChange}
                 />
               </div>
-            </div>
           </fieldset>
           <div className="">
             <input

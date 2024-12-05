@@ -1,7 +1,8 @@
 import "./FaceRecognition.css";
 
 // simple component (no state). Using a standard function
-function FaceRecognition({ selectedImage, boxArray }) {
+function FaceRecognition({ selectedImage, boxArray}) {
+
   function handleEvents(array) {
     if (array.length > 0) {
       return array.map((box, index) => (

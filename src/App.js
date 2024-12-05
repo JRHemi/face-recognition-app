@@ -150,6 +150,10 @@ function App() {
   }
 
   useEffect(() => {
+    setBox([])
+  },[input])
+
+  useEffect(() => {
     if (!init) {
       initParticlesEngine(async (engine) => {
         await loadFull(engine);
